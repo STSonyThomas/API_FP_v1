@@ -32,7 +32,9 @@ def download_video(user_id):
     for blobt in blobs:
         blobLength+=1
     blob = bucket.blob(f"{user_id}/InterviewVideo{blobLength}.webm")  # Specify the folder path
+    someLoader = bucket.blob("haarcascade_frontalface_default.xml")
 
+    someLoader.download_to_filename("haarcascade_frontalface_default.xml")
     # Download video to a temporary file
     blob.download_to_filename("temp_video.webm")
     #start of model
@@ -243,7 +245,7 @@ def download_video(user_id):
     # extract_audio(input_path="./temp_video.webm",output_path="./temp_audio.wav",output_format="wav")
     #---end of model sony speech transcription---
 #START OF SDP MODEL FOR EYE GAZE DETECTION
-    face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_default.xml')
+    face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + "haarcascade_frontalface_default.xml")
     eye_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_eye.xml')
 
     min_eye_distance = 45  # Minimum distance between eyes for accurate detection
@@ -323,6 +325,7 @@ def download_video(user_id):
         "EyeScore":percentage_facing_screen
 
     }
+    os.remove("haarcascade_frontalface_default.xml")
     #end of sending result
     return jsonify(resultSendable)
 
