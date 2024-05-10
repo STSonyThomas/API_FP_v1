@@ -1,7 +1,6 @@
 flask
 firebase-admin
 opencv-python
-pickle
 mediapipe
 pandas
 numpy
